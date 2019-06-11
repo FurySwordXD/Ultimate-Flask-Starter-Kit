@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body>
+    <div class="container">
+        <form class="jumbotron mx-auto form-group card" id="form">
+            <h3>Motor Status: </h3><hr>
+            {% for component in component_status %}
+            <div class="row">
+                <label class="form-control text-primary col-6">{{component.component}}</label>
+                <div class="col-2">
+                <label class="switch m-3">
+                    {% if component.status %}
+                    <input autocomplete="off" type="checkbox" name="{{component.component}}" checked>
+                    {% else %}
+                    <input autocomplete="off" type="checkbox" name="{{component.component}}">
+                    {% endif %}
+                    <span class="slider round"></span>
+                </label>
+                </div>
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+
+<script>
+
+    function update(data)
+    {
+        for (var i = 0; i < data.length; i++)
+        {
+            if (data[i].status)
+                $("input[name='"+data[i].component+"']").prop("checked", 1);
+            else
+                $("input[name='"+data[i].component+"']").prop("checked", 0);
+        }
+    }
+
+    $("input:checkbox").change(function() {      
+        var inputs = $('input:checkbox')
+        var data = []
+        for (var i = 0; i < inputs.length; i++)
+        {
+            data.push({"component": inputs[i].name, "status": inputs[i].checked})
+        }
+        $(this).prop("checked", 0);
+        $.ajax({
+            url: "/api/update",
+            method: "POST",
+            data: JSON.stringify(data),
+            contentType: 'application/json', 
+            success: function(response)
+            {
+                update(response);
+            },
+            error: function(response)
+            {
+                alert("Unable to connect to remote server...")
+                console.log(response);
+            }
+        })
+    });
+
+</script>
+{% endblock %}

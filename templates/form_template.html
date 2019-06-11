@@ -1,0 +1,17 @@
+{% macro sentence_case(text) %}
+{{text[0]|upper}}{{text[1:]}}
+{% endmacro %}
+
+{% for error in errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ error }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+{% endfor %}
+
+{% for field in fields %}
+    <label>{{sentence_case(field)}}: </label>
+    <input class="form-control" type="text" name="{{field}}" id="{{field}}" placeholder="{{sentence_case(field)}}"><br>
+{% endfor %}

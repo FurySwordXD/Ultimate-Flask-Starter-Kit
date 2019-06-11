@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container-fluid p-auto">
+    <div class="row justify-content-center align-items-center">
+
+        <form class="col-md-8 col-lg-5 p-3 shadow form-group" method="POST" action="{{action_url}}" enctype="multipart/form-data">
+            <h3>Login</h3>
+            <hr>
+            <div class="card-body">
+                {% include 'form_template.html' %}
+            </div>
+            <center>
+                <button type="submit" class="btn btn-primary" style="width: 100%">Submit</button>
+            </center>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
