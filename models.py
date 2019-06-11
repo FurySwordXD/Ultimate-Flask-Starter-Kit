@@ -41,11 +41,11 @@ class User(db.Model):
 
     @staticmethod
     def create_fields():
-        return ['username', 'password', 'confirm password']
+        return {'username': 'text', 'password': 'password', 'confirm password': 'password'}
 
     @staticmethod
     def login_fields():
-        return ['username', 'password']
+        return {'username': 'text', 'password': 'password'}
 
     def serialize(self):
         return {'username': self.username}

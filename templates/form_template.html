@@ -11,7 +11,7 @@
     </div>
 {% endfor %}
 
-{% for field in fields %}
+{% for field, type in fields.items %}
     <label>{{sentence_case(field)}}: </label>
-    <input class="form-control" type="text" name="{{field}}" id="{{field}}" placeholder="{{sentence_case(field)}}"><br>
+    <input class="form-control" type="{{type}}" name="{{field}}" id="{{field}}" placeholder="{{sentence_case(field)}}"><br>
 {% endfor %}
