@@ -22,7 +22,7 @@ def login_required(function):
 def login():
     if request.method == "GET":
         if not session.get("user"):
-            return render_template("generic_form.html", fields=User.login_fields(), action_url="/login/")
+            return render_template("generic_form.html", form_header="Login", fields=User.login_fields(), action_url="/login/")
         else:
             return redirect("/")
 
@@ -34,8 +34,8 @@ def login():
                 session["user"] = user.serialize()  
                 return redirect("/")
             else:
-                return render_template("generic_form.html", fields=User.login_fields(), action_url="/login/", errors=["Username and password do not match!"])
-        return render_template("generic_form.html", fields=User.login_fields(), action_url="/login/", errors=["User does not exist!"])
+                return render_template("generic_form.html", form_header="Login", fields=User.login_fields(), action_url="/login/", errors=["Username and password do not match!"])
+        return render_template("generic_form.html", form_header="Login", fields=User.login_fields(), action_url="/login/", errors=["User does not exist!"])
 
 
 @app.route("/logout/", methods=["GET"])
